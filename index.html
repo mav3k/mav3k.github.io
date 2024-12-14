@@ -16,7 +16,6 @@
             background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
             color: #333;
             display: flex;
-            flex-direction: column;
             height: 100vh;
             overflow: hidden;
             transition: background 0.3s, color 0.3s;
@@ -29,15 +28,15 @@
 
         header {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Ensures buttons are spaced out */
             padding: 20px;
+            width: 100%;
+            position: absolute;
+            top: 10px;
+            left: 10px;
         }
 
-        header h1 {
-            font-size: 1.5rem;
-        }
-
-        .buttons button {
+        header button {
             margin-left: 10px;
             padding: 5px 10px;
             cursor: pointer;
@@ -47,17 +46,28 @@
             color: white;
         }
 
-        main {
-            display: flex;
-            flex-direction: row;
-            height: 100%;
-        }
-
-        .section {
+        .first-column {
             flex: 1;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 6rem;
+            font-weight: bold;
+            line-height: 1.1;
+            width: 70%;
+        }
+
+        .first-column h1 {
+            font-size: 8rem;
+            margin: 0;
+        }
+
+        .second-column {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .slider-container {
@@ -73,6 +83,18 @@
             align-items: center;
             gap: 10px;
             position: relative;
+            flex-direction: row;
+            justify-content: flex-start;
+        }
+
+        .slider-item h4 {
+            font-size: 0.9rem;
+            width: 120px;
+            margin-right: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .slider {
@@ -95,7 +117,7 @@
             cursor: pointer;
         }
 
-        .mute-btn {
+        .mute-btn, .play-pause-btn {
             background: none;
             border: none;
             color: #6c757d;
@@ -107,67 +129,85 @@
             min-width: 40px;
             text-align: right;
         }
+
     </style>
 </head>
 <body>
     <header>
-        <h1>Lofi Music Player</h1>
-        <div class="buttons">
-            <button id="info-btn">i</button>
-            <button id="theme-btn">Dark Theme</button>
-        </div>
+        <button id="info-btn">i</button>
+        <button id="theme-btn">Dark Theme</button>
     </header>
 
-    <main>
-        <div class="section"></div>
-        <div class="section"></div>
-        <!-- Third Section with Sliders -->
-        <div class="section">
-            <div class="slider-container">
-                <!-- Slider Items -->
-                <div class="slider-item">
-                    <button class="mute-btn" id="bars-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="bars">
-                    <span class="volume-percent" id="bars-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="drinks-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="drinks">
-                    <span class="volume-percent" id="drinks-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="cups-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="cups">
-                    <span class="volume-percent" id="cups-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="customers-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="customers">
-                    <span class="volume-percent" id="customers-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="machinery-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="machinery">
-                    <span class="volume-percent" id="machinery-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="rain-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="rain">
-                    <span class="volume-percent" id="rain-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="sunny-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="sunny">
-                    <span class="volume-percent" id="sunny-percent">50%</span>
-                </div>
-                <div class="slider-item">
-                    <button class="mute-btn" id="fireplace-mute">Mute</button>
-                    <input type="range" min="0" max="100" value="50" class="slider" id="fireplace">
-                    <span class="volume-percent" id="fireplace-percent">50%</span>
-                </div>
+    <!-- First Column (Mohit's Cafe) -->
+    <div class="first-column">
+        <div>
+            <h1>Mohit's</h1>
+            <h1>Cafe</h1>
+        </div>
+    </div>
+
+    <!-- Second Column (Sliders) -->
+    <div class="second-column">
+        <div class="slider-container">
+            <!-- Slider Items -->
+            <div class="slider-item">
+                <h4>Barista</h4>
+                <button class="play-pause-btn" id="bars-play">Play</button>
+                <button class="mute-btn" id="bars-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="bars">
+                <span class="volume-percent" id="bars-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Preparing Drinks</h4>
+                <button class="play-pause-btn" id="drinks-play">Play</button>
+                <button class="mute-btn" id="drinks-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="drinks">
+                <span class="volume-percent" id="drinks-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Coffee Cups</h4>
+                <button class="play-pause-btn" id="cups-play">Play</button>
+                <button class="mute-btn" id="cups-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="cups">
+                <span class="volume-percent" id="cups-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Other Customers</h4>
+                <button class="play-pause-btn" id="customers-play">Play</button>
+                <button class="mute-btn" id="customers-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="customers">
+                <span class="volume-percent" id="customers-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Machinery</h4>
+                <button class="play-pause-btn" id="machinery-play">Play</button>
+                <button class="mute-btn" id="machinery-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="machinery">
+                <span class="volume-percent" id="machinery-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Rainy Day</h4>
+                <button class="play-pause-btn" id="rain-play">Play</button>
+                <button class="mute-btn" id="rain-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="rain">
+                <span class="volume-percent" id="rain-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Sunny Day</h4>
+                <button class="play-pause-btn" id="sunny-play">Play</button>
+                <button class="mute-btn" id="sunny-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="sunny">
+                <span class="volume-percent" id="sunny-percent">50%</span>
+            </div>
+            <div class="slider-item">
+                <h4>Fireplace</h4>
+                <button class="play-pause-btn" id="fireplace-play">Play</button>
+                <button class="mute-btn" id="fireplace-mute">Mute</button>
+                <input type="range" min="0" max="100" value="50" class="slider" id="fireplace">
+                <span class="volume-percent" id="fireplace-percent">50%</span>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -175,6 +215,7 @@
             const infoBtn = document.getElementById("info-btn");
             const sliders = document.querySelectorAll(".slider");
             const muteButtons = document.querySelectorAll(".mute-btn");
+            const playPauseButtons = document.querySelectorAll(".play-pause-btn");
 
             const previousVolumes = {};
 
@@ -214,6 +255,13 @@
                     }
                     const percentSpan = document.getElementById(`${slider.id}-percent`);
                     percentSpan.textContent = `${slider.value}%`;
+                });
+            });
+
+            playPauseButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const isPlay = button.textContent === "Play";
+                    button.textContent = isPlay ? "Pause" : "Play";
                 });
             });
         });
