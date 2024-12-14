@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lofi Music Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.dark {
+            background: linear-gradient(to bottom, #2e2e2e, #1b1b1b);
+            color: #f1f1f1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+        }
+
+        .buttons button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #6c757d;
+            color: white;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+        }
+
+        .section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .slider-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            flex-grow: 1;
+            height: 4px;
+            background: #ddd;
+            outline: none;
+            border-radius: 5px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 15px;
+            width: 15px;
+            background: #6c757d;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .mute-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .volume-percent {
+            min-width: 40px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lofi Music Player</h1>
+        <div class="buttons">
+            <button id="info-btn">i</button>
+            <button id="theme-btn">Dark Theme</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="section"></div>
+        <div class="section"></div>
+        <!-- Third Section with Sliders -->
+        <div class="section">
+            <div class="slider-container">
+                <!-- Slider Items -->
+                <div class="slider-item">
+                    <button class="mute-btn" id="bars-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="bars">
+                    <span class="volume-percent" id="bars-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="drinks-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="drinks">
+                    <span class="volume-percent" id="drinks-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="cups-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="cups">
+                    <span class="volume-percent" id="cups-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="customers-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="customers">
+                    <span class="volume-percent" id="customers-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="machinery-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="machinery">
+                    <span class="volume-percent" id="machinery-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="rain-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="rain">
+                    <span class="volume-percent" id="rain-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="sunny-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="sunny">
+                    <span class="volume-percent" id="sunny-percent">50%</span>
+                </div>
+                <div class="slider-item">
+                    <button class="mute-btn" id="fireplace-mute">Mute</button>
+                    <input type="range" min="0" max="100" value="50" class="slider" id="fireplace">
+                    <span class="volume-percent" id="fireplace-percent">50%</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeBtn = document.getElementById("theme-btn");
+            const infoBtn = document.getElementById("info-btn");
+            const sliders = document.querySelectorAll(".slider");
+            const muteButtons = document.querySelectorAll(".mute-btn");
+
+            const previousVolumes = {};
+
+            // Dark Theme Toggle
+            themeBtn.addEventListener("click", () => {
+                document.body.classList.toggle("dark");
+            });
+
+            // Information Button
+            infoBtn.addEventListener("click", () => {
+                alert("Welcome to the Lofi Music Player! Adjust the sliders to mix sounds to your liking.");
+            });
+
+            sliders.forEach(slider => {
+                slider.addEventListener("input", () => {
+                    const percentSpan = document.getElementById(`${slider.id}-percent`);
+                    percentSpan.textContent = `${slider.value}%`;
+
+                    if (slider.value === "0") {
+                        document.getElementById(`${slider.id}-mute`).textContent = "Unmute";
+                    } else {
+                        document.getElementById(`${slider.id}-mute`).textContent = "Mute";
+                    }
+                });
+            });
+
+            muteButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const slider = document.getElementById(button.id.replace("-mute", ""));
+                    if (slider.value !== "0") {
+                        previousVolumes[slider.id] = slider.value;
+                        slider.value = 0;
+                        button.textContent = "Unmute";
+                    } else {
+                        slider.value = previousVolumes[slider.id] || 50;
+                        button.textContent = "Mute";
+                    }
+                    const percentSpan = document.getElementById(`${slider.id}-percent`);
+                    percentSpan.textContent = `${slider.value}%`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
